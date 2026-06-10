@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apa nak makan</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 100%);
+      margin: 0; padding: 20px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      min-height: 100vh; color: #333;
+    }
+    h1 {
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      color: #E84118; margin-bottom: 2rem;
+      text-shadow: 2px 2px 0px rgba(255,255,255,0.7);
+    }
+    button {
+      background: #0097E6; color: white; border: none;
+      padding: 1rem 2.5rem; font-size: 1.5rem; font-weight: bold;
+      border-radius: 999px; cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0,151,230,0.4);
+      transition: transform 0.1s, background 0.2s;
+    }
+    button:active { transform: scale(0.95); }
+    button:hover { background: #00A8FF; }
+    #result {
+      margin-top: 3rem; font-weight: 900;
+      font-size: clamp(3rem, 10vw, 5rem);
+      color: #44BD32; text-shadow: 3px 3px 0px #fff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Apa nak makan tonight? 🍽️</h1>
+  <button onclick="pickDish()">Pilih untuk saya!</button>
+  <div id="result"></div>
+  <script>
+    const dishes = [
+      { n: 'Nasi Lemak', e: '🥥🍚' }, { n: 'Roti Canai', e: '🫓🍛' },
+      { n: 'Laksa', e: '🍜🍤' }, { n: 'Satay', e: '🍢🥜' },
+      { n: 'Mee Goreng', e: '🍝🍳' }, { n: 'Cendol', e: '🍧🍨' },
+      { n: 'Rendang', e: '🥩🥥' }, { n: 'Teh Tarik', e: '☕🧋' },
+      { n: 'Mee Rebus', e: '🍜🥔' }, { n: 'Nasi Kerabu', e: '🍚💙' }
+    ];
+    function pickDish() {
+      const d = dishes[Math.floor(Math.random() * dishes.length)];
+      const el = document.getElementById('result');
+      el.style.transform = 'scale(0.8)';
+      setTimeout(() => {
+        el.innerHTML = `${d.n} <br>${d.e}`;
+        el.style.transform = 'scale(1)';
+        el.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+      }, 50);
+    }
+  </script>
+</body>
+</html>

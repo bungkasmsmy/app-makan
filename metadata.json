@@ -1,0 +1,6 @@
+{
+  "name": "Makan Picker",
+  "description": "A random Malaysian dish picker",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
