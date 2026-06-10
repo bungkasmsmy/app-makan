@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Submissions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --border-color: rgba(255, 255, 255, 0.1);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-color: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 3rem 1.5rem;
+      overflow-x: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Background blob decorations for a depth effect */
+    .bg-blob {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      border-radius: 50%;
+      filter: blur(50px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .blob-1 {
+      top: 5%;
+      left: 10%;
+    }
+
+    .blob-2 {
+      bottom: 10%;
+      right: 5%;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, transparent 70%);
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 680px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(to right, #ffffff, #c7d2fe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    #list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    li {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.75rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+      animation: slideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    li:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 20px rgba(99, 102, 241, 0.1);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .contact-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 0.75rem;
+    }
+
+    .contact-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .name {
+      font-weight: 600;
+      color: #ffffff;
+      font-size: 1.1rem;
+    }
+
+    .email {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    .time {
+      font-size: 0.8rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+
+    .message {
+      color: #e2e8f0;
+      font-size: 0.975rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* Status & Utility styles */
+    .status-msg {
+      text-align: center;
+      font-size: 1.1rem;
+      padding: 3rem;
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .error-msg {
+      color: #ef4444;
+      border-color: rgba(239, 68, 68, 0.2);
+    }
+
+    /* Skeleton Loading effect */
+    .skeleton {
+      background: linear-gradient(90deg, rgba(30, 41, 59, 0.5) 25%, rgba(51, 65, 85, 0.5) 50%, rgba(30, 41, 59, 0.5) 75%);
+      background-size: 200% 100%;
+      animation: loading-skeleton 1.5s infinite;
+      height: 120px;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+    }
+
+    @keyframes loading-skeleton {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+
+  <div class="container">
+    <header>
+      <h1>All submissions</h1>
+      <p class="subtitle">Review messages sent through the contact form.</p>
+    </header>
+
+    <ul id="list">
+      <!-- Skeleton Loaders -->
+      <div class="skeleton"></div>
+      <div class="skeleton" style="animation-delay: .2s"></div>
+      <div class="skeleton" style="animation-delay: .4s"></div>
+    </ul>
+  </div>
+
+  <script>
+    const URL = "https://script.google.com/macros/s/AKfycbymEcIvGIFWeJA_aVoVPWn8h5LWJrVKIl2GEvppxhZiTaR_3PzpZfNtDqhHzmrD7imi/exec";
+    const list = document.getElementById('list');
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '';
+      try {
+        const d = new Date(dateStr);
+        if (isNaN(d.getTime())) return dateStr;
+        return d.toLocaleDateString(undefined, { 
+          year: 'numeric', 
+          month: 'short', 
+          day: 'numeric', 
+          hour: '2-digit', 
+          minute: '2-digit' 
+        });
+      } catch (e) {
+        return dateStr;
+      }
+    }
+
+    async function loadSubmissions() {
+      try {
+        const res = await fetch(URL);
+        const data = await res.json();
+
+        // Clear skeletons
+        list.innerHTML = '';
+
+        if (data && data.ok && Array.isArray(data.contacts) && data.contacts.length > 0) {
+          data.contacts.forEach((contact, index) => {
+            const li = document.createElement('li');
+            li.style.animationDelay = `${index * 0.05}s`;
+
+            const headerDiv = document.createElement('div');
+            headerDiv.className = 'contact-header';
+
+            const metaDiv = document.createElement('div');
+            metaDiv.className = 'contact-meta';
+
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'name';
+            nameSpan.innerText = contact.name || 'Anonymous';
+
+            const emailSpan = document.createElement('span');
+            emailSpan.className = 'email';
+            emailSpan.innerText = `(${contact.email || 'No Email'})`;
+
+            metaDiv.appendChild(nameSpan);
+            metaDiv.appendChild(emailSpan);
+
+            const timeSpan = document.createElement('span');
+            timeSpan.className = 'time';
+            timeSpan.innerText = formatDate(contact.created_at || contact.createdAt);
+
+            headerDiv.appendChild(metaDiv);
+            headerDiv.appendChild(timeSpan);
+
+            const msgPara = document.createElement('p');
+            msgPara.className = 'message';
+            msgPara.innerText = contact.message || '';
+
+            li.appendChild(headerDiv);
+            li.appendChild(msgPara);
+            list.appendChild(li);
+          });
+        } else {
+          list.innerHTML = '<div class="status-msg">No submissions yet</div>';
+        }
+      } catch (error) {
+        console.error('Failed to load submissions:', error);
+        list.innerHTML = '<div class="status-msg error-msg">Couldn\'t load — try again later</div>';
+      }
+    }
+
+    // Load on init
+    loadSubmissions();
+  </script>
+</body>
+</html>
